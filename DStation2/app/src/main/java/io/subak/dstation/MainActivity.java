@@ -13,6 +13,8 @@ import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.Button;
 import android.widget.Toast;
 
 import java.util.ArrayList;
@@ -50,6 +52,7 @@ public class MainActivity extends AppCompatActivity {
     private List<String> missingPermission = new ArrayList<>();
     private AtomicBoolean isRegistrationInProgress = new AtomicBoolean(false);
     private static final int REQUEST_PERMISSION_CODE = 12345;
+    Button showMapButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -195,6 +198,16 @@ public class MainActivity extends AppCompatActivity {
                 Toast.makeText(getApplicationContext(), toastMsg, Toast.LENGTH_LONG).show();
             }
         });
+
+    }
+
+    public void showMap(View view) {
+
+        //Toast.makeText(this, "Clicked Button!", Toast.LENGTH_SHORT).show();
+
+
+        Intent intent = new Intent(getApplicationContext(), KakaoMapActivity.class);
+        startActivity(intent);
 
     }
 }
