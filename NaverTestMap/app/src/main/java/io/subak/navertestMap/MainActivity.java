@@ -3,7 +3,9 @@ package io.subak.navertestMap;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
-public class MainActivity extends AppCompatActivity {
+import com.nhn.android.maps.NMapActivity;
+
+public class MainActivity extends NMapActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
