@@ -7,4 +7,5 @@
 ##5. map Activity의 onCreate에서 네이버 맵 초기화 
 
 ##6. 의존성 추가 네이버 bintray 추가
-
+##7. 네이버 맵 클라이언트 아이드 추가
+##8. gralde(project)부분에 라이브러리 추가 

@@ -6,10 +6,7 @@ buildscript {
         jcenter()
 
 
-        //https://docs.ncloud.com/ko/naveropenapi_v3/maps/android-sdk/v3/start.html
-        maven {
-            url 'https://navercorp.bintray.com/maps'
-        }
+
         
     }
     dependencies {
@@ -26,6 +23,13 @@ allprojects {
     repositories {
         google()
         jcenter()
+
+
+        //https://docs.ncloud.com/ko/naveropenapi_v3/maps/android-sdk/v3/start.html
+
+        maven {
+            url 'https://navercorp.bintray.com/maps'
+        }
         
     }
 }
