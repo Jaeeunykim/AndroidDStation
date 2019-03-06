@@ -3,5 +3,13 @@
 #2. gralde project maven추가 
 #3. mapActivity 상속삭제 
 #4. 네이버 맵키 매니패스트에 등록
-#5. multidex 설정 추가 
+#5. multidex 설정 추가
+#6. adb 에서 apk파일 삭제 후 실행 (오류해결)
+#7. Mainfest에 fragment 추가
+#8. MapActivity의 onCreate에서 setContentView설정 
+=================
+adb 실행방법 .bash_profile 확인후
+adb shell 
+명령어 호출 
+
 
