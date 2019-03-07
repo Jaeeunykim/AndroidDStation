@@ -89,6 +89,7 @@ dependencies {
 * on Create에서 MapFragment생성 (R.id...) 후 Transaction으로 add, commit..
 * getMapAsync(this)
 4. onMapRead에서 마커 생성후 좌표 전달하여 표시 
+5. Manifest에 화면에 초기 맵 그려지는 좌표 설정 
 
 -----
 ### 참고 자료
