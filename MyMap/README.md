@@ -1,4 +1,4 @@
-# to do 
+### to do 
 1. gralde 맵라이브러리 버전 변경 
 2. gralde project maven추가 
 3. mapActivity 상속삭제 
@@ -13,5 +13,13 @@
 adb 실행방법 .bash_profile 확인후
 adb shell 
 명령어 호출 
+
+
+---
+
+### 3/8(FRI) To do 
+* 앱 실행시 첫화면으로 회사 근처 맵그리고, 마커(copter)생성
+
+
 
 

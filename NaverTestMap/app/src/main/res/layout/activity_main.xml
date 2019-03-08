@@ -11,8 +11,8 @@
         android:layout_height="match_parent"
         android:id="@+id/map"
         android:name="com.naver.maps.map.MapFragment"
-        app:navermap_latitude="37.484876"
-        app:navermap_longitude="126.970673"
+        app:navermap_latitude="37.485426"
+        app:navermap_longitude="126.968357"
         />
 
 </android.support.constraint.ConstraintLayout>
