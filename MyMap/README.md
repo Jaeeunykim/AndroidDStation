@@ -39,7 +39,7 @@ adb shell
     
   6. 반투명 레이어 추가(배터리정보, GPS, Position)  
      android:background="#FF000000" 80 50로 투명도
-
+----
 ### 3/9(SAT) To do 
 1. 레이아웃 비율에 따라 화면 뷰 나타내는 방법 확인 
 2. layout 속성들(weight, gravity...)
@@ -49,7 +49,7 @@ adb shell
 6. NaverTestMap에 마커의 위치값 forloop으로 update
    - Thread변수 생성 (timer(call-sleep-update)) :호출될때마다 위도경도 +0.5
    - 마커의 위치값으로 전달  
-
+----
 ### 3/12(Tue)
 * SDK API 
 * 배터리 정보 가지고 오는 :getChargeRemainingInPercent(common/battery)
