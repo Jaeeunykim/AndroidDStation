@@ -50,3 +50,15 @@ adb shell
    - Thread변수 생성 (timer(call-sleep-update)) :호출될때마다 위도경도 +0.5
    - 마커의 위치값으로 전달  
 
+### 3/12(Tue)
+* SDK API 
+* 배터리 정보 가지고 오는 :getChargeRemainingInPercent(common/battery)
+* GPS정보 : etGPSSignalLevel(FlightControllerState)
+* 조종기모드(ex포지션) : getFlightMode() -> 결과 (enum)  -> String 비교해서 포지션 그려줌 
+* 위도경도 :getAircraftLocation(check) /getLocationCoordinate (FlightControllerState)
+* 배터리 관련 정보해서 랜딩..상태: BatteryThresholdBehavior
+* isFlying() : 현재 비행기 날고 있는지 상태 
+* getHeading() :  북 0 이고 동쪽으로 이동 1도씩 180씩 가는 경우  북 서 쪽으로 -180도까지 비행기의 헤딩을 그방향에 맞춰서  get 해서 180을 받앗다면 동서남북 기준으로 몇도 회전? 확인 가능
+* component classes가 중요 / 비행들어가면 미션클래스 보고 
+* manager 가지고와서 비행상태 뿌려줌 !! do it!
+* API에서 해당 메소드 호출되는 부분 찾아서 어떻게 뿌려 주는지 확인해보고(sample code)

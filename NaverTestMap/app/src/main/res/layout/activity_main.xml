@@ -20,7 +20,7 @@
     <LinearLayout
         android:layout_width="1027dp"
         android:layout_height="52dp"
-        android:background="#96F5F5F5"
+        android:background="#80000000"
         android:orientation="horizontal"
         app:layout_constraintBottom_toTopOf="@+id/map"
         app:layout_constraintEnd_toEndOf="parent"
@@ -31,7 +31,7 @@
 
         <ImageView
             android:id="@+id/subak_logo"
-            android:layout_width="80dp"
+            android:layout_width="50dp"
             android:layout_height="match_parent"
             android:layout_gravity="left"
             android:layout_weight="0.1"
@@ -42,9 +42,10 @@
             android:id="@+id/empty"
             android:layout_width="0dp"
             android:layout_height="64dp"
-            android:layout_weight="0.5"
+            android:layout_weight="0.4"
             android:gravity="center"
-            android:textColor="@android:color/background_dark"
+            android:text="subak.io"
+            android:textColor="@android:color/darker_gray"
             android:textSize="20sp"
             android:textStyle="bold"
             android:typeface="sans" />
@@ -52,11 +53,11 @@
         <TextView
             android:id="@+id/position"
             android:layout_width="wrap_content"
-            android:layout_height="40dp"
+            android:layout_height="match_parent"
             android:layout_weight="3"
             android:gravity="center"
             android:text="POSITION"
-            android:textColor="@android:color/black"
+            android:textColor="@android:color/white"
             android:textSize="20sp"
             android:textStyle="bold" />
 
@@ -66,37 +67,49 @@
             android:layout_height="30dp"
             android:layout_gravity="center"
             android:layout_weight="0.2"
-            android:src="@drawable/battery" />
+            android:src="@drawable/battery_white" />
 
         <TextView
             android:id="@+id/battery_text"
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_weight="0.2"
+            android:layout_weight="0.25"
             android:gravity="center"
             android:text="45%"
-            android:textColor="@android:color/black"
+            android:textColor="@android:color/white"
             android:textSize="18sp"
             android:textStyle="bold" />
 
         <ImageView
             android:id="@+id/gps_img"
             android:layout_width="0dp"
-            android:layout_height="30dp"
+            android:layout_height="33dp"
             android:layout_gravity="center"
             android:layout_weight="0.2"
-            android:src="@drawable/gps" />
+            android:src="@drawable/gps_white" />
 
         <TextView
             android:id="@+id/gps_text"
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_weight="0.15"
+            android:layout_weight="0.1"
             android:gravity="center"
             android:text="6"
-            android:textColor="@android:color/black"
+            android:textColor="@android:color/white"
             android:textSize="18sp"
             android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/empty3"
+            android:layout_width="0dp"
+            android:layout_height="64dp"
+            android:layout_weight="0.1"
+            android:gravity="center"
+            android:textColor="@android:color/background_dark"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:typeface="sans" />
+
     </LinearLayout>
 
 </android.support.constraint.ConstraintLayout>
