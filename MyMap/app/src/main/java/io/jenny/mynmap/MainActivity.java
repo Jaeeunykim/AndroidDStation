@@ -15,6 +15,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
@@ -53,7 +54,7 @@ public class MainActivity extends AppCompatActivity {
     private AtomicBoolean isRegistrationInProgress = new AtomicBoolean(false);
     private static final int REQUEST_PERMISSION_CODE = 12345;
 
-    Button button;
+    Button map_button, battery_button;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -69,10 +70,17 @@ public class MainActivity extends AppCompatActivity {
         //Initialize DJI SDK Manager
         mHandler = new Handler(Looper.getMainLooper());
 
-        button = findViewById(R.id.button);
+        map_button = findViewById(R.id.button);
+
+        battery_button = findViewById(R.id.battery_check_btn);
 
 
 
+    }
+
+    public void checkBattery(View view) {
+        Intent intent = new Intent(getApplicationContext(),Components_Info.class);
+        startActivity(intent);
     }
 
 

@@ -62,3 +62,39 @@ adb shell
 * component classes가 중요 / 비행들어가면 미션클래스 보고 
 * manager 가지고와서 비행상태 뿌려줌 !! do it!
 * API에서 해당 메소드 호출되는 부분 찾아서 어떻게 뿌려 주는지 확인해보고(sample code)
+
+----
+### 3/13(Wed)
+* ####  DJI BaseComponet 정보 가지고와서 UI View에 보여주기  
+ 1. DJI 정보 가지고오기   
+    1. DJIManager.getInstance(DJI Object접근자)  
+    2. getProduct
+    3. getBaseComponent(필요한 컴포넌트)
+       ex) battery.getBatteryPercent하면 안됨! 그럼? stateCallback으로!
+    4. setStateCallback(new BaseCompState.callback){update}
+    5. getNeedInfo(필요한정보)
+
+2.  View에 그려주기   
+    (뷰는 메인쓰레드만 접근 가능하니, Post이용해서!)
+    1. Post(){new Runnable... run(){findR.id... = 정보.toString..}}
+ 
+ * #### TestActivity생성해서 컴포넌트 정보들 text로 확인
+---
+
+### 3/14(Thu)
+
+#### DJI 조정기 정보 (비행체정보)가지고 오는 부분
+  1. DJISDKManager 클래스가 DJI 제품과 SDK를 사용하는데 EntryPoint 임.  
+      이 클래스가 제품에 접근 및 연결을 그리고 sdk register하는데 사용된다.   
+  2. SDK Admin /  **Product Connection** / Debug and Logging / Get Log Path / Managers / LDM  
+  3.  Product Connection  클래스 -> startConnectionToProduct
+       1) startConnectionToProduct는 DJI제품과 SDK를 연결를 시작한다.
+            단, registration App이 성공한뒤에 한번 호출가능하며,
+            이 동작에 DJI제품과 모바일 기기 사이의 데이터 연결이 있다.
+       2) 데이터 연결은 USB/Wift 혹은 블루투스이다. 
+           - USB/Wift연결은 SDK외부에서 설정되어야 한다 (android Menifest에서 리소스연결)
+           - 블루투스는 getBluetoothProductConnector로 설정 한다(bluetoothProductConnector 객체 있어야한다)
+       3) 2번의 연결이 성공하면 **onProductConnect**가 호출
+       4) startConnectionToProduct 에서 시작한 모든 연결이 성공하면 **true**값 반환 
+
+
