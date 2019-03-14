@@ -9,15 +9,17 @@ import dji.sdk.sdkmanager.DJISDKManager;
 
 public class Components_Info extends AppCompatActivity {
 
-    StringBuffer stringBuffer;
-    TextView battery_info_text;
+    protected StringBuffer stringBuffer;
+    protected TextView battery_info_text;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         MApplication.getEventBus().register(this);
         setContentView(R.layout.activity_components__info);
-        battery_info_text = findViewById(R.id.battery_info_text);
+        stringBuffer = new StringBuffer();
+        battery_info_text = (TextView) findViewById(R.id.battery_info_text);
+
 
         MApplication.getProductInstance().getBattery().setStateCallback(new BatteryState.Callback() {
             @Override

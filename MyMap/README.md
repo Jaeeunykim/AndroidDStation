@@ -97,4 +97,16 @@ adb shell
        3) 2번의 연결이 성공하면 **onProductConnect**가 호출
        4) startConnectionToProduct 에서 시작한 모든 연결이 성공하면 **true**값 반환 
 
-
+## To do   
+- 정리 방법 : BaseComponent의 someMthod, Post방법으로 뷰에 적용
+### Map : 지도에 비행체 표시 [1시간 소요예상]
+- [x] DJI heading 정보 확인 
+  - BaseComponent : Compass
+  - Method : getHeading()
+  - Post로 textView에 정보 값 저장
+- [x] 이미지 찾기  
+- [x] 위치 적용 
+  - BaseComponent : flightControllerState
+  - Method : getLatitude(), getLatitude()
+  - 받아온값 check :latitude > -90 && latitude < 90 && longitude > -180 && longitude < 180) && (latitude != 0f && longitude != 0f)
+  - runOnUiThread  

@@ -1,0 +1,18 @@
+# To-do list
+- ## Map
+  - 비행체 표시 
+    - Heading 적용 : DJI에서 해딩정보 가지고 오는 부분확인(getHeading..) 
+    - 이미지 찾기
+    - 위치 적용 : ex)getLocation
+- ## Status Bar
+  - 아이콘 만들기
+    - GPS
+    - Battery 
+    - ....
+- ## Control Bar
+  - 컨트롤 리스트
+    - Arming
+    - Take-Off
+    - land
+    - RTH
+    - 컨트롤 위치는 화면의 왼쪽

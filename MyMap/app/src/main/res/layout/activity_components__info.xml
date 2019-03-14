@@ -26,12 +26,12 @@
 
     <TextView
         android:id="@+id/battery_info_text"
-        android:layout_width="149dp"
-        android:layout_height="19dp"
-        android:layout_marginTop="71dp"
-        android:layout_marginEnd="113dp"
-        android:layout_marginRight="113dp"
-        android:layout_marginBottom="641dp"
+        android:layout_width="235dp"
+        android:layout_height="115dp"
+        android:layout_marginTop="39dp"
+        android:layout_marginEnd="46dp"
+        android:layout_marginRight="46dp"
+        android:layout_marginBottom="577dp"
         android:text=" "
         android:textColor="@android:color/black"
         android:textStyle="bold"

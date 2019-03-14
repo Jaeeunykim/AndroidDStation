@@ -9,20 +9,16 @@ import com.squareup.otto.Bus;
 import com.squareup.otto.ThreadEnforcer;
 
 import dji.sdk.base.BaseProduct;
-import dji.sdk.sdkmanager.BluetoothProductConnector;
 import dji.sdk.sdkmanager.DJISDKManager;
 
 public class MApplication extends Application {
 
     private static BaseProduct product;
     private static Application app = null;
-    private static BluetoothProductConnector bluetoothConnector = null;
+
     private static Bus bus = new Bus(ThreadEnforcer.ANY);
 
-    public static synchronized BluetoothProductConnector getBluetoothProductConnector() {
-        bluetoothConnector = DJISDKManager.getInstance().getBluetoothProductConnector();
-        return bluetoothConnector;
-    }
+
 
 
 

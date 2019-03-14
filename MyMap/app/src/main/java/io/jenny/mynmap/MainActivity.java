@@ -164,6 +164,7 @@ public class MainActivity extends AppCompatActivity {
                         }
                         @Override
                         public void onProductConnect(BaseProduct baseProduct) {
+                            Toast.makeText(MApplication.getInstance(), "DJI기체와 연결성공!", Toast.LENGTH_SHORT).show();
                             Log.d(TAG, String.format("onProductConnect newProduct:%s", baseProduct));
                             showToast("Product Connected");
                             notifyStatusChange();
