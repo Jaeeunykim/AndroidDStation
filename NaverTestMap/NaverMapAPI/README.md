@@ -87,9 +87,9 @@ dependencies {
 3. NaverMap객체 얻어오기 (인터페이스)
 * MapActivity에서 FragmentActivity extends 받고, OnMapReadyCallback implements 받는다
 * on Create에서 MapFragment생성 (R.id...) 후 Transaction으로 add, commit..
-* getMapAsync(this)
-4. onMapRead에서 마커 생성후 좌표 전달하여 표시 
-5. Manifest에 화면에 초기 맵 그려지는 좌표 설정 
+4. **getMapAsync(this)**
+5. **onMapRready**에서 마커 생성후 좌표 전달하여 표시 
+6. Manifest에 화면에 초기 맵 그려지는 좌표 설정 
 
 -----
 ### 참고 자료

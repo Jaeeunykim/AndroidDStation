@@ -104,9 +104,23 @@ adb shell
   - BaseComponent : Compass
   - Method : getHeading()
   - Post로 textView에 정보 값 저장
-- [x] 이미지 찾기  
+- [x] 이미지 찾기 : aircraft.png
 - [x] 위치 적용 
   - BaseComponent : flightControllerState
-  - Method : getLatitude(), getLatitude()
+  - Method : getLatitude(), getLongitude()
   - 받아온값 check :latitude > -90 && latitude < 90 && longitude > -180 && longitude < 180) && (latitude != 0f && longitude != 0f)
-  - runOnUiThread  
+  - runOnUiThread로 맵뷰에 해당 마커 그려줌
+  - marker.setAngle()
+
+
+### 3/15(Fri)
+- To do 
+  - 배터리 정보 받아온 값 사용해서 상태바에 그려주기 
+    - <s>레이아웃 상태바 추가(MyMap)
+    - 배터리,GPS imageView,TextView생성 
+    - 가지고 온 배터리 퍼센트 텍스뷰에 넣기 </s>
+  - 현재 비행체 위치 맵에 마커로 그려주기 
+    - <s>맵에 현재 위치 받아와서 : getLat, getLon</s>
+    - 비행체 마커 그려주기 : (NaverMap) [test필요]
+    - 이후 Heading 설정
+  - 아이콘 만들기(GPS)

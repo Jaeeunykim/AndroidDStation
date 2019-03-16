@@ -5,12 +5,17 @@ import android.os.Bundle;
 import android.widget.TextView;
 
 import dji.common.battery.BatteryState;
+import dji.common.flightcontroller.FlightControllerState;
+import dji.sdk.base.BaseProduct;
+import dji.sdk.flightcontroller.FlightController;
+import dji.sdk.products.Aircraft;
 import dji.sdk.sdkmanager.DJISDKManager;
 
 public class Components_Info extends AppCompatActivity {
 
     protected StringBuffer stringBuffer;
     protected TextView battery_info_text;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,5 +42,8 @@ public class Components_Info extends AppCompatActivity {
                 });
             }
         });
+
+
     }
+
 }

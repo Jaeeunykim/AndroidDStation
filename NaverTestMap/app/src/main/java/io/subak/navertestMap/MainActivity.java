@@ -58,7 +58,7 @@ public class MainActivity extends FragmentActivity implements OnMapReadyCallback
         latitude = 126.968357;
 
         mapFragment.getMapAsync(this);
-        parent = this;
+//        parent = this;
 
         lt = new Thread()
         {
@@ -107,18 +107,13 @@ public class MainActivity extends FragmentActivity implements OnMapReadyCallback
 
     @Override
     public void onMapReady(@NonNull NaverMap naverMap) {
+
         nMap = naverMap;
-
         Log.e("called onMapReady", "called");
-        //Marker marker = new Marker(); --> aircraft
-        aircraft.setPosition(new LatLng(longitude, latitude));
+            //Marker marker = new Marker(); --> aircraft
 
-        OverlayImage image = OverlayImage.fromResource(R.drawable.copter);
-        aircraft.setIcon(image);
-        aircraft.setWidth(120);
-        aircraft.setHeight(120);
-        aircraft.setAnchor(new PointF(0.5f, 0.5f));
-        aircraft.setMap(nMap);
+
+
 
     }
 
@@ -126,7 +121,15 @@ public class MainActivity extends FragmentActivity implements OnMapReadyCallback
         runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                mapFragment.getMapAsync(parent);
+                if(nMap == null) { return ;}
+//              mapFragment.getMapAsync(parent);
+                OverlayImage image = OverlayImage.fromResource(R.drawable.copter);
+                aircraft.setIcon(image);
+                aircraft.setWidth(120);
+                aircraft.setHeight(120);
+                aircraft.setAnchor(new PointF(0.5f, 0.5f));
+                aircraft.setPosition(new LatLng(longitude, latitude));
+                aircraft.setMap(nMap);
             }
         });
     }

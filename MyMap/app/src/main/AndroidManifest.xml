@@ -35,7 +35,9 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".Components_Info"></activity>
-        <activity android:name=".MapActivity" /> <!-- DJI SDK -->
+        <activity
+            android:name=".MapActivity"
+            android:screenOrientation="landscape" /> <!-- DJI SDK -->
         <uses-library android:name="com.android.future.usb.accessory" />
 
         <meta-data
