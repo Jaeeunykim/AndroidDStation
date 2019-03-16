@@ -12,31 +12,39 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.naver.maps.geometry.LatLng;
+import com.naver.maps.map.LocationTrackingMode;
 import com.naver.maps.map.MapFragment;
 import com.naver.maps.map.NaverMap;
 import com.naver.maps.map.OnMapReadyCallback;
 import com.naver.maps.map.overlay.Marker;
 import com.naver.maps.map.overlay.OverlayImage;
+import com.naver.maps.map.util.FusedLocationSource;
 
 import dji.common.battery.BatteryState;
 import dji.common.flightcontroller.FlightControllerState;
+import dji.common.flightcontroller.GPSSignalLevel;
 import dji.sdk.base.BaseProduct;
 import dji.sdk.flightcontroller.FlightController;
 import dji.sdk.products.Aircraft;
 
+import static java.lang.Thread.sleep;
+
 
 public class MapActivity extends FragmentActivity implements OnMapReadyCallback {
+    private static final int LOCATION_PERMISSION_REQUEST_CODE = 1000;
+    private FusedLocationSource locationSource;
 
     NaverMap nMap;
-    double droneLocationLng;
-    double droneLocationLat;
+    double droneLocationLng,droneLocationLat;
     Marker aircraft;
-    MapActivity parent;
     MapFragment mapFragment;
     private FlightController mFlightController;
     private String batter_percent;
     TextView battery_text;
     ImageView battery_img;
+    TextView gps_text;
+    ImageView gps_img;
+    MapActivity parent;
 
     private int[] battery_imgs={
             R.drawable.battery_white0,
@@ -46,6 +54,17 @@ public class MapActivity extends FragmentActivity implements OnMapReadyCallback 
             R.drawable.battery_white4,
 
     };
+    private int[] gps_imgs={
+            R.drawable.satellite0,
+            R.drawable.satellite1,
+            R.drawable.satellite2,
+            R.drawable.satellite3,
+            R.drawable.satellite4,
+
+
+    };
+
+    GPSSignalLevel gpsLevl;
 
 
     @Override
@@ -53,8 +72,13 @@ public class MapActivity extends FragmentActivity implements OnMapReadyCallback 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_map);
 
+        locationSource = new FusedLocationSource(this, LOCATION_PERMISSION_REQUEST_CODE);
+
         battery_text = findViewById(R.id.battery_text);
         battery_img = findViewById(R.id.battery_img);
+        aircraft = new Marker();
+        gps_img = findViewById(R.id.gps_img);
+        gps_text = findViewById(R.id.gps_text);
 
 
          mapFragment = (MapFragment)getSupportFragmentManager().findFragmentById(R.id.map);
@@ -63,10 +87,13 @@ public class MapActivity extends FragmentActivity implements OnMapReadyCallback 
             getSupportFragmentManager().beginTransaction().add(R.id.map, mapFragment).commit();
         }
 
-        mapFragment.getMapAsync(this);
-        //parent = this;
+        mapFragment.getMapAsync(this); //네이버 맵 객체 가지고 오기 -> 콜백 onMapReady
+        parent = this;
 
-        //setFlightControllerCallback();
+
+
+
+        getGPSLevel();
 
         MApplication.getProductInstance().getBattery().setStateCallback(new BatteryState.Callback() {
             @Override
@@ -91,24 +118,67 @@ public class MapActivity extends FragmentActivity implements OnMapReadyCallback 
 
     }
 
+    public void getGPSLevel(){
+
+        BaseProduct product = MApplication.getProductInstance();
+        if (product != null && product.isConnected()) {
+            if (product instanceof Aircraft) {
+                mFlightController = ((Aircraft) product).getFlightController();
+            }
+        }
+        if(mFlightController != null){
+            mFlightController.setStateCallback(new FlightControllerState.Callback() {
+                @Override
+                public void onUpdate(@NonNull FlightControllerState flightControllerState) {
+                    gpsLevl = flightControllerState.getGPSSignalLevel();
+                    final int idx = gpsLevl.value();
+
+                    gps_img.post(new Runnable() {
+                        @Override
+                        public void run() {
+
+//                            Toast.makeText(MApplication.getInstance(), "gpsLevel : "+gpsLevl.value(), Toast.LENGTH_SHORT).show();
 
 
+                            gps_text.setText(Integer.toString(idx));
+                            if(idx == 0 || idx ==255){
+                                gps_img.setImageResource(gps_imgs[0]);
+                            }else if(idx ==1 || idx == 2){
+                                gps_img.setImageResource(gps_imgs[1]);
+                            }else{
+                                gps_img.setImageResource(gps_imgs[idx]);
+                            }
+                        }
+                    });
 
 
+                }
+            });
+        }
+
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        if (locationSource.onRequestPermissionsResult(requestCode, permissions, grantResults)) {
+            return;
+        }
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+    }
 
     @Override
     public void onMapReady(@NonNull NaverMap naverMap) {
         nMap = naverMap;
-//        if(aircraft != null){
-//            drawAircraft();
-//        }
-//        aircraft.setMap(nMap);
-        Toast.makeText(MApplication.getInstance(), "onMapReady", Toast.LENGTH_SHORT).show();
+        nMap.setLocationSource(locationSource);
+        nMap.setLocationTrackingMode(LocationTrackingMode.Follow);
+
+
+
+        setFlightControllerCallback();
+
     }
 
     private void setFlightControllerCallback() {
-
-        Toast.makeText(MApplication.getInstance(), "setFlightController", Toast.LENGTH_SHORT).show();
 
         BaseProduct product = MApplication.getProductInstance();
         if (product != null && product.isConnected()) {
@@ -124,59 +194,62 @@ public class MapActivity extends FragmentActivity implements OnMapReadyCallback 
                 public void onUpdate(FlightControllerState djiFlightControllerCurrentState) {
                     droneLocationLat = djiFlightControllerCurrentState.getAircraftLocation().getLatitude();
                     droneLocationLng = djiFlightControllerCurrentState.getAircraftLocation().getLongitude();
-                    Toast.makeText(MApplication.getInstance(), "getLocation", Toast.LENGTH_SHORT).show();
-                    aircraft = new Marker();
 
-                    runOnUiThread(new Runnable() {
+
+                    Toast.makeText(MApplication.getInstance(), "getLocation1111 : lat:"+ Double.toString(droneLocationLat)+", lng : "+Double.toString(droneLocationLng), Toast.LENGTH_SHORT).show();
+
+                    new Thread(){
                         @Override
                         public void run() {
-                            mapFragment.getMapAsync(parent);
+                            try{
+                                runOnUiThread(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        OverlayImage image = OverlayImage.fromResource(R.drawable.aircraft);
+                                        aircraft.setIcon(image);
+                                        aircraft.setWidth(120);
+                                        aircraft.setHeight(120);
+                                        aircraft.setAnchor(new PointF(0.5f, 0.5f));
+                                        aircraft.setPosition(new LatLng(37.485426, 126.968357));
+                                        aircraft.setMap(nMap);
+                                        mapFragment.getMapAsync(parent);
+
+                                    }
+                                });
+                            } catch (Exception e){
+                                e.printStackTrace();
+                            }
                         }
-                    });
+                    }.start();
 
                 }
             });
         }
     }
 
-
-//
-//    public void drawAircraft() {
-//
-////            aircraft = new Marker();
-//        aircraft.setPosition(new LatLng(droneLocationLng, droneLocationLat));
-//            OverlayImage image = OverlayImage.fromResource(R.drawable.aircraft);
-//            //Create MarkerOptions object
-//
-//            aircraft.setIcon(image);
-//            aircraft.setWidth(85);
-//            aircraft.setHeight(85);
-//            aircraft.setAnchor(new PointF(0.5f, 0.5f));
-//            aircraft.setMap(nMap);
-//
-//    }
+//    public void drawLocation(){
 //
 //        runOnUiThread(new Runnable() {
 //            @Override
 //            public void run() {
-//                mapFragment.getMapAsync(parent);
-////
-////                if (aircraft != null) {
-////                    aircraft.setMap(null);
-////                }
-////
-////                if (checkGpsCoordination(droneLocationLat, droneLocationLat)) {
-////                    aircraft.setPosition(new LatLng(droneLocationLat, droneLocationLng));
-////                    aircraft.setMap(nMap);
-////                    mapFragment.getMapAsync(parent);
-////                    Toast.makeText(MApplication.getInstance(), "drawmap", Toast.LENGTH_SHORT).show();
-//
+//                if(nMap == null) {
+//                    return;
 //                }
+//
+//                aircraft.setPosition(new LatLng(37.485426, 126.968357));
+//                aircraft.setMap(nMap);
+//
+//                Toast.makeText(MApplication.getInstance(), "getLocation 2222: lat:"+ Double.toString(droneLocationLat)+", lng : "+Double.toString(droneLocationLng), Toast.LENGTH_SHORT).show();
+//
 //            }
 //        });
+//    }
 
 
-    public static boolean checkGpsCoordination(double latitude, double longitude) {
-        return (latitude > -90 && latitude < 90 && longitude > -180 && longitude < 180) && (latitude != 0f && longitude != 0f);
-    }
+
+
+
+//    public static boolean checkGpsCoordination(double latitude, double longitude) {
+//        return (latitude > -90 && latitude < 90 && longitude > -180 && longitude < 180) && (latitude != 0f && longitude != 0f);
+//    }
 }

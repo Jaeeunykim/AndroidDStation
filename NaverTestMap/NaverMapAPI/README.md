@@ -82,14 +82,17 @@ dependencies {
 * MapFramgent,Mapview사용시 차이점 
   * mapView의 경우 해당 뷰가 포함된 액티비디 라이프 사이클에 맞우서 호출해야함 
   onCreate(), onStart(), onResume(), onPause(), onStop(), onDestroy(), onSaveInstanceState(), onLowMemory()  
-  
+
   * MapFragment사용시 이러한 절차 필요 없음 
-3. NaverMap객체 얻어오기 (인터페이스)
-* MapActivity에서 FragmentActivity extends 받고, OnMapReadyCallback implements 받는다
-* on Create에서 MapFragment생성 (R.id...) 후 Transaction으로 add, commit..
-4. **getMapAsync(this)**
-5. **onMapRready**에서 마커 생성후 좌표 전달하여 표시 
-6. Manifest에 화면에 초기 맵 그려지는 좌표 설정 
+3. NaverMap그려주기
+   
+   1) MapActivity에서 FragmentActivity extends 받고, OnMapReadyCallback implements 받는다
+   2) on Create에서 MapFragment생성 (R.id...) 후 Transaction으로 add, commit.. 및 마커 생성 
+   3) **getMapAsync(this) : naverMap객체 얻어오기** 
+   4) **4번의 콜백 매서드로 onMapRready : 얻어온 객체 저장 **
+   5. 마커 설정(icon img, anchor, img size..) 
+   6. 마커.setMap(navermap) 마커를 맵에 그려줌  
+4. Manifest에 화면에 초기 맵 그려지는 좌표 설정 
 
 -----
 ### 참고 자료

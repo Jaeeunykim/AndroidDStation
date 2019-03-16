@@ -117,10 +117,35 @@ adb shell
 - To do 
   - 배터리 정보 받아온 값 사용해서 상태바에 그려주기 
     - <s>레이아웃 상태바 추가(MyMap)
-    - 배터리,GPS imageView,TextView생성 
-    - 가지고 온 배터리 퍼센트 텍스뷰에 넣기 </s>
+    - 배터리,GPS imageView,TextView생성 </s>
+    - 가지고 온 배터리 퍼센트 텍스뷰에 넣기 
   - 현재 비행체 위치 맵에 마커로 그려주기 
     - <s>맵에 현재 위치 받아와서 : getLat, getLon</s>
     - 비행체 마커 그려주기 : (NaverMap) [test필요]
     - 이후 Heading 설정
   - 아이콘 만들기(GPS)
+
+
+### 3/16(Sat)
+- To do 
+  - 앱실행시 사용자 위치 표시 (mobile) -> naverMap
+    - 1. ManiFest권한 확인 
+    - 2. setLocationSource() 호출해서 LocationSource구현제 지정(LocationSource는 네이버 위치제공 인터페이스)
+    - 3. builde.gradle에 play-services-location의존성 추가 
+    - 4. onMapReady에서  nMap.setLocationSource 호출,setLocationTrackingMode 모드설정
+  - GPS Singal Level
+    - BaseCompnet : FlightControllerState
+    - Method : getGPSSignalLevel()
+    - return : LEVEL_0~5 , None
+    - getGPSLevel() 메소드 구현함
+
+  - NaverMap에 dji에서 가지고온 위도 경도 위치에 마커 오버레이
+    - 네이버맵 생성 순서 :   
+    onCraete에서 getMapFragment -->   
+    getMapAsync를 호출해서 네이버맵 객체 가지고옴 -->  
+    콜백 메소드로 onMapReady 호출되고 여기서 맵관련 마커,오버레이등을 설정 함 
+    - onCreate에서 네이버 맵 객체를 가지고 올때 Parent에 이 객체저장해둠
+    - onMapReady에서 DJI위치정보를 가지고오는 setFlightControllerCallback메소드 호출
+    - stateCallback 안에서 쓰레드로 마커 업데이트 해줌
+    - 맵을 업데이트 해주기 위해서 getMapAsync(parent)호출 (상황반복됨)
+    
